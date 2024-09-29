@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="pt-br">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+   
+    <header>
+        <div class="center">
+            <div class="logo"><img class="img1" src="logo.png" alt=""></div><!--logo-->
+            <div class="menu">
+            <a href="">Home</a>
+            <a href="">Sobre</a>
+            <a href="">Menu</a>
+            <a href="">Contatos</a>
+            </div><!--menu-->
+        </div><!--center-->
+    </header>
+    <section class="sobre">
+        <div class="extras">
+            <div class="imagem2"><img class="garrafa" src="img5.png" alt=""></div>
+        </div><!--extras-->
+       <div class="center">
+        <div class="texto">
+            <p class="p2">Saiba mais sobre</p><h1>Funções Orgânicas</h1>
+            <p class="p1">Descubra como as funções orgânicas são fundamentais na química, desempenhando papéis essenciais em processos biológicos, industriais e na nossa vida diária.</p>
+            
+           <a href="comece.html"> <button>
+            comece agora
+        </button></a>
+        </div>
+      
+       </div>
+       
+    </section>
+    <script>
+        const colorButton = document.querySelector('button');
+        const heading = document.querySelector('h1');
+        const colorBox = document.querySelector('.extras');
+
+        const colors = [
+            { r: 236, g: 186, b: 9 },  // Primeiro: #ecba09 (amarelo)
+            { r: 255, g: 87, b: 51 },   // Segundo: Vermelho
+            { r: 51, g: 255, b: 87 },   // Terceiro: Verde
+            { r: 255, g: 51, b: 204 }   // Quarto: Rosa
+        ];
+
+        let index = 0;
+        const transitionTime = 7000; // 7 segundos
+
+        function interpolateColor(color1, color2, factor) {
+            const result = {
+                r: Math.round(color1.r + (color2.r - color1.r) * factor),
+                g: Math.round(color1.g + (color2.g - color1.g) * factor),
+                b: Math.round(color1.b + (color2.b - color1.b) * factor)
+            };
+            return `rgb(${result.r}, ${result.g}, ${result.b})`;
+        }
+
+        function updateColor() {
+            const color1 = colors[index];
+            const color2 = colors[(index + 1) % colors.length];
+            let step = 0;
+
+            const interval = setInterval(() => {
+                if (step <= 1) {
+                    const newColor = interpolateColor(color1, color2, step);
+                    colorButton.style.backgroundColor = newColor;
+                    heading.style.color = newColor;
+                    colorBox.style.backgroundColor = newColor; // Muda a cor da div
+                    step += 0.01; // Ajuste a suavidade
+                } else {
+                    clearInterval(interval);
+                    index = (index + 1) % colors.length;
+                    setTimeout(updateColor, transitionTime); // Chama a próxima interpolação após 7 segundos
+                }
+            }, 30); // Tempo entre as atualizações
+        }
+
+        updateColor();
+    </script>
+</body>
+</html>
